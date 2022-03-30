@@ -6,9 +6,9 @@
             <h2>JURUSAN TEKNOLOGI INFORMASI-POLITEKNIK NEGERI MALANG</h2>
         </div>
         <div class="row mt-5 d-flex justify-content-beetwen">
-            <form action="{{ route('search') }}" method="GET" class="col-7 d-flex justify-content-start">
+            <form method="get" action="{{ route('mahasiswa.index') }}" class="col-7 d-flex justify-content-start">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="search" placeholder="Keyword Pencarian" aria-label="Keyword Pencarian" aria-describedby="button">
+                    <input type="text" class="form-control" name="search" value="{{ request('search') }}" id="search" placeholder="Keyword Pencarian" aria-label="Keyword Pencarian" aria-describedby="button">
                     <div class="input-group-append">
                         <button class="btn btn-warning" type="submit" id="button"> Cari</button>
                     </div>

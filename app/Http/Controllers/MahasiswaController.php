@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class MahasiswaController extends Controller
 {
@@ -15,9 +14,23 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::all(); // Mengambil semua isi tabel
-        $paginate = Mahasiswa::orderBy('id_mahasiswa', 'asc')->Paginate(5);
-        return view('mahasiswa.index', ['mahasiswa' => $mahasiswa, 'paginate' => $paginate]);
+        if (request('search')) {
+            $mahasiswas = Mahasiswa::where('Nim', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Nama', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Kelas', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Jurusan', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Jenis_Kelamin', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Email', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Alamat', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Tanggal_Lahir', 'LIKE', '%' . request('search') . '%')
+                ->paginate(5);
+
+            return view('mahasiswa.index', ['paginate' => $mahasiswas]);
+        } else {
+            $mahasiswa = Mahasiswa::all(); // Mengambil semua isi tabel
+            $paginate = Mahasiswa::orderBy('id_mahasiswa', 'asc')->Paginate(5);
+            return view('mahasiswa.index', ['mahasiswa' => $mahasiswa, 'paginate' => $paginate]);
+        }
     }
 
     /**
@@ -65,25 +78,6 @@ class MahasiswaController extends Controller
     {
         $Mahasiswa = Mahasiswa::where('nim', $nim)->first();
         return view('mahasiswa.detail', compact('Mahasiswa'));
-    }
-
-    public function search(Request $request)
-    {
-        // Get the search value from the request
-        $search = $request->input('search');
-
-        // Search in the title and body columns from the posts table
-        $mahasiswas = Mahasiswa::where('Nim', 'LIKE', "%{$search}%")
-            ->orWhere('Nama', 'LIKE', "%{$search}%")
-            ->orWhere('Kelas', 'LIKE', "%{$search}%")
-            ->orWhere('Jurusan', 'LIKE', "%{$search}%")
-            ->orWhere('Jenis_Kelamin', 'LIKE', "%{$search}%")
-            ->orWhere('Email', 'LIKE', "%{$search}%")
-            ->orWhere('Alamat', 'LIKE', "%{$search}%")
-            ->orWhere('Tanggal_Lahir', 'LIKE', "%{$search}%")
-            ->paginate(5);
-
-        return view('mahasiswa.index', ['paginate' => $mahasiswas])->with('succes', $search);
     }
 
     /**
