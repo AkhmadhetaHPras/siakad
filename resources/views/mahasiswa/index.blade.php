@@ -5,8 +5,20 @@
         <div class="pull-left mt-2">
             <h2>JURUSAN TEKNOLOGI INFORMASI-POLITEKNIK NEGERI MALANG</h2>
         </div>
-        <div class="float-right my-2">
-            <a class="btn btn-success" href="{{ route('mahasiswa.create') }}"> Input Mahasiswa</a>
+        <div class="row mt-5 d-flex justify-content-beetwen">
+            <form action="{{ route('search') }}" method="GET" class="col-7 d-flex justify-content-start">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="search" placeholder="Keyword Pencarian" aria-label="Keyword Pencarian" aria-describedby="button">
+                    <div class="input-group-append">
+                        <button class="btn btn-warning" type="submit" id="button"> Cari</button>
+                    </div>
+                </div>
+            </form>
+            <div class="col-5 d-flex justify-content-end">
+                <div class="float-right mb-3">
+                    <a class="btn btn-success" href="{{ route('mahasiswa.create') }}"> Input Mahasiswa</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -31,7 +43,7 @@
         <th>Jurusan</th>
         <th width="280px">Action</th>
     </tr>
-    @foreach ($mahasiswa as $mhs)
+    @foreach ($paginate as $mhs)
     <tr>
 
         <td>{{ $mhs ->nim }}</td>
@@ -51,4 +63,7 @@
     </tr>
     @endforeach
 </table>
+<div class="d-flex justify-content-end">
+    {!! $paginate->links() !!}
+</div>
 @endsection
