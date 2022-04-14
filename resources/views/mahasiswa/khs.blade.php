@@ -6,9 +6,9 @@
         <h4>JURUSAN TEKNOLOGI INFORMASI-POLITEKNIK NEGERI MALANG</h4>
     </div>
     <h2 class="text-center mt-4 mb-5">KARTU HASIL STUDI (KHS)</h2>
-    <strong>Name: </strong> {{$mhs->nama}}<br>
-    <strong>NIM: </strong> {{$mhs->nim}}<br>
-    <strong>Class: </strong> {{$mhs->kelas->nama_kelas}}<br><br>
+    <strong>Name: </strong> {{$khs->mahasiswa->nama}}<br>
+    <strong>NIM: </strong> {{$khs->mahasiswa->nim}}<br>
+    <strong>Class: </strong> {{$khs->mahasiswa->kelas->nama_kelas}}<br><br>
     <table class="table table-bordered">
         <thead>
             <tr>

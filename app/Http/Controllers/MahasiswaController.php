@@ -168,9 +168,10 @@ class MahasiswaController extends Controller
     {
 
         $khs = Mahasiswa_MataKuliah::where('mahasiswa_id', $id)
-            ->with('mahasiswa', 'matakuliah')->get();
-        $mhs = Mahasiswa::with('kelas')->where('id_mahasiswa', $id)->first();
+            ->with('matakuliah')->get();
+        $khs->mahasiswa = Mahasiswa::with('kelas')
+            ->where('id_mahasiswa', $id)->first();
 
-        return view('mahasiswa.khs', compact('khs', 'mhs'));
+        return view('mahasiswa.khs', compact('khs'));
     }
 }
