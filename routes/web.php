@@ -24,3 +24,5 @@ Route::resource('mahasiswa', MahasiswaController::class);
 // });
 
 Route::get('/khsmahasiswa/{id}', [MahasiswaController::class, 'khs'])->name('mahasiswa.khs');
+
+Route::get('/khsmahasiswa/cetak_pdf/{id}', [MahasiswaController::class, 'cetak_khs'])->name('cetak_khs');
